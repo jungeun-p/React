@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Subject2 extends Component {
+class ReadContent extends Component {
   render() {
     return (
       <article>
@@ -11,4 +11,4 @@ class Subject2 extends Component {
   }
 }
 
-export default Subject2;
+export default ReadContent;
