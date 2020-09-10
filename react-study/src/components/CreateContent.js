@@ -4,8 +4,23 @@ class CreateContent extends Component {
   render() {
     return (
       <article>
-        <h2>CREATE</h2>
-        <form></form>
+        <h2>CREATE✍</h2>
+        <form
+          action='/create_process'
+          method='post'
+          onSubmit={function (e) {
+            e.preventDefault();
+            this.props.onSubmit(e.target.title.value, e.target.desc.value);
+          }.bind(this)}
+        >
+          <p>
+            <input type='text' name='title' placeholder='title'></input>
+          </p>
+          <textarea name='desc' placeholder='description'></textarea>
+          <p>
+            <input type='submit' value='submit'></input>
+          </p>
+        </form>
       </article>
     );
   }
