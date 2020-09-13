@@ -25,7 +25,7 @@ class App extends Component {
       ],
     }; //state값을 초기화
   }
-  //mode === read
+  //mode === read, update
   getReadContent() {
     let i = 0;
     while (i < this.state.contents.length) {
@@ -36,6 +36,7 @@ class App extends Component {
       i = i + 1;
     }
   }
+  //make a component
   getContent() {
     let _title,
       _desc,
