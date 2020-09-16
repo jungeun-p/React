@@ -13,7 +13,7 @@ class App extends Component {
     this.max_content_id = 3;
     //id값을 담은 객체일 뿐, state를 굳이 추가할 필요가 없다.
     this.state = {
-      mode: 'read',
+      mode: 'welcome',
       selected_content_id: 2,
       subject: { title: 'WEB', sub: 'world wid web🥞' },
       //mode=welcome
@@ -129,9 +129,28 @@ class App extends Component {
         ></Subject1>
         <Control
           onChangeMode={function (_mode) {
-            this.setState({
-              mode: _mode,
-            });
+            if (_mode === 'delete') {
+              if (window.confirm('really?')) {
+                let _contents = Array.from(this.state.contents);
+                let i = 0;
+                while (i < _contents.length) {
+                  if (_contents[i].id === this.state.selected_content_id) {
+                    _contents.splice(i, 1); //어디부터 어디까지?
+                    break;
+                  }
+                  i = i + 1;
+                }
+                this.setState({
+                  mode: 'welcome',
+                  contents: _contents,
+                });
+                alert('delete complete');
+              }
+            } else {
+              this.setState({
+                mode: _mode,
+              });
+            }
           }.bind(this)}
         ></Control>
         {this.getContent()}
