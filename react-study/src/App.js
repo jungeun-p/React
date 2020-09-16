@@ -13,7 +13,7 @@ class App extends Component {
     this.max_content_id = 3;
     //id값을 담은 객체일 뿐, state를 굳이 추가할 필요가 없다.
     this.state = {
-      mode: 'create',
+      mode: 'read',
       selected_content_id: 2,
       subject: { title: 'WEB', sub: 'world wid web🥞' },
       //mode=welcome
@@ -55,13 +55,21 @@ class App extends Component {
         <CreateContent
           onSubmit={function (_title, _desc) {
             this.max_content_id = this.max_content_id + 1;
-            let _contents = this.state.contents.concat({
+            let _contents = Array.from(this.state.contents);
+            _contents.push({
               id: this.max_content_id,
               title: _title,
               desc: _desc,
             });
+            //let _contents = this.state.contents.concat({
+            //  id: this.max_content_id,
+            //  title: _title,
+            //  desc: _desc,
+            //  });
             this.setState({
               contents: _contents,
+              mode: 'read',
+              selected_content_id: this.max_content_id,
             });
             console.log(_title, _desc);
           }.bind(this)}
@@ -73,15 +81,24 @@ class App extends Component {
         <UpdateContent
           //값 주입
           data={_content}
-          onSubmit={function (_title, _desc) {
-            this.max_content_id = this.max_content_id + 1;
-            let _contents = this.state.contents.concat({
-              id: this.max_content_id,
-              title: _title,
-              desc: _desc,
-            });
+          onSubmit={function (_id, _title, _desc) {
+            let _contents = Array.from(this.state.contents); //새로운 배열 탄생
+            let i = 0;
+            while (i < _contents.length) {
+              if (_contents[i].id === _id) {
+                _contents[i] = { id: _id, title: _title, desc: _desc };
+                break;
+              }
+              i = i + 1;
+            }
+            // let _contents = this.state.contents.concat({
+            //   id: this.max_content_id,
+            //   title: _title,
+            //   desc: _desc,
+            // });
             this.setState({
               contents: _contents,
+              mode: 'read',
             });
             console.log(_title, _desc);
           }.bind(this)}
